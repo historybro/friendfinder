@@ -1,4 +1,4 @@
-var friends = require("../data/friend");
+var friends = require("../data/friends.js");
 
 module.exports = function (app) {
     app.get("/api/friends", function (req, res) {
@@ -8,7 +8,7 @@ module.exports = function (app) {
     app.post("/api/friends", function (req, res) {
         var maxDiff = 50;
         var matchFriend;
-        var currentFriend;
+        var currentFriend = req.body;
         friends.forEach(function (friend) {
             var difference = 0;
             for (var i = 0; i < friends.scores.length; i++) {
