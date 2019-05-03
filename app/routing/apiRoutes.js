@@ -9,4 +9,4 @@ module.exports = function(app) {
         console.log(req.body);
         res.json(friends);
     })
-}
+};

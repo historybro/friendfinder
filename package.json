@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/historybro/friendfinder#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "jquery": "^3.4.1"
   }
 }
