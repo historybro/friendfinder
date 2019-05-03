@@ -10,6 +10,8 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -76,43 +78,44 @@
     </div>
 
 </body>
+
 <script type="text/javascript">
     $("#submit").on("click", function() {
         console.log('submit clicked');
         $("#match-results").show();
-        // var friend = {
-        //     name: $("#name").val().trim(),
-        //     photo: $("#photo").val().trim(),
-        //     values: []
-        // };
+        var friend = {
+            name: $("#name").val().trim(),
+            photo: $("#photo").val().trim(),
+            values: []
+        };
 
-        // for (var i = 0; i < 2; i++) {
-        //     var score = $("#q" + i).val();
-        //     friend.values.push(parseInt(score));
-        // };
-        // var url = window.location.origin;
-        // $.post(url + "/api/friends"), user, function (data) {
-        //     var match = {
-        //         txt: "You match with " + data.name,
-        //         img: "<img src=\"" + data.photo + "\">"
-        //     };
-        //     modal(match);
-        //     $("#name").val("");
-        //     $("#photo").val("");
-        // }
-        // event.preventDefault();
+        for (var i = 0; i < 2; i++) {
+            var score = $("#q" + i).val();
+            friend.values.push(parseInt(score));
+        };
+        var url = window.location.origin;
+        $.post(url + "/api/friends"), friend, function (data) {
+            var match = {
+                txt: "You match with " + data.name,
+                img: "<img src=\"" + data.photo + "\">"
+            };
+            modal(match);
+            $("#name").val("");
+            $("#photo").val("");
+        }
+        event.preventDefault();
     });
 
-    // function modal(data) {
-    //     $("#match-name").text(data.txt);
-    //     $("#match-img").html(data.img);
-    //     $("#match-results").show(800, function () {
-    //         timeoutID = window.setTimeout(hideDiv, 8000);
-    //         function hideDiv() {
-    //             $("#match-results").hide(800);
-    //         };
-    //     });
-    // };
+    function modal(data) {
+        $("#match-name").text(data.txt);
+        $("#match-img").html(data.img);
+        $("#match-results").show(800, function () {
+            timeoutID = window.setTimeout(hideDiv, 8000);
+            function hideDiv() {
+                $("#match-results").hide(800);
+            };
+        });
+    };
 
 </script>
 
