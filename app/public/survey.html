@@ -31,7 +31,7 @@
 
         <div>
             <h4>Question 1</h4>
-            <select data-placeholder="" class="chosen-select" id="q1">
+            <select class="chosen-select" id="q1">
                 <option value="1">1 (Strongly Disagree)</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -41,7 +41,7 @@
             <br>
             <br>
             <h4>Question 2</h4>
-            <select class="chosen-select" id="q1">
+            <select class="chosen-select" id="q2">
                 <option value="1">1 (Strongly Disagree)</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -80,43 +80,32 @@
 </body>
 
 <script type="text/javascript">
+    $(document).ready(function(){
+        $("#match-results").hide();
+    });
+
     $("#submit").on("click", function() {
         console.log('submit clicked');
-        $("#match-results").show();
         var friend = {
             name: $("#name").val().trim(),
             photo: $("#photo").val().trim(),
             values: []
         };
 
-        for (var i = 0; i < 2; i++) {
-            var score = $("#q" + i).val();
+        for (var i = 1; i < 3; i++) {
+            var score = $("#q" + i).val().trim();
             friend.values.push(parseInt(score));
         };
-        var url = window.location.origin;
-        $.post(url + "/api/friends"), friend, function (data) {
-            var match = {
-                txt: "You match with " + data.name,
-                img: "<img src=\"" + data.photo + "\">"
-            };
-            modal(match);
-            $("#name").val("");
-            $("#photo").val("");
+        
+        $.post("/api/friends", friend), function(data) {
+            console.log(data);
+            $("#match-name").text(data.matchName);
+            $("#match-img").html(data.matchImage);
+            $("#match-results").show();            
         }
+        console.log(friend);
         event.preventDefault();
     });
-
-    function modal(data) {
-        $("#match-name").text(data.txt);
-        $("#match-img").html(data.img);
-        $("#match-results").show(800, function () {
-            timeoutID = window.setTimeout(hideDiv, 8000);
-            function hideDiv() {
-                $("#match-results").hide(800);
-            };
-        });
-    };
-
 </script>
 
 </html>
