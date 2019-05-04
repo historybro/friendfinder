@@ -59,7 +59,7 @@
 
     </div>
 
-    <div id="match-results" class="modal" role="dialog">
+    <div id="match-results" class="modal fade" role="dialog" >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">                    
@@ -79,15 +79,12 @@
 </body>
 
 <script type="text/javascript">
-    $(document).ready(function(){
-        $("#match-results").hide();
-    });
 
     $("#submit").on("click", function() {
         console.log('submit clicked');
         event.preventDefault();
 
-        var friend = {
+        var newfriend = {
             name: $("#name").val().trim(),
             photo: $("#photo").val().trim(),
             scores: []
@@ -95,14 +92,14 @@
 
         for (var i = 1; i < 3; i++) {
             var score = $("#q" + i).val().trim();
-            friend.scores.push(parseInt(score));
+            newfriend.scores.push(parseInt(score));
         };
-        var url = window.location.origin;
-        $.post(url+"/api/friends", friend), function(data) {
-            console.log("DATA: "+data);
+        
+
+        $.post("/api/friends", newfriend), function(data) {
             $("#match-name").text(data.matchName);
-            $("#match-img").html(data.matchImage);
-            $("#match-results").show();                      
+            $("#match-img").html("src", data.matchImage);
+            $("#match-results").modal("toggle");                      
         };
              
     });
