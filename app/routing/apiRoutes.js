@@ -13,7 +13,7 @@ module.exports = function(app) {
         for(var i =0; i < friends.length; i++){
             diff = 0;
             for(var j = 0; j < friends[i].scores.length; j++){
-                diff += Math.abs(friends[i].scores[j] + 2)// - currentUser.scores[j])
+                diff += Math.abs(currentUser.scores[j] - friends[i].scores[j]);
             }
             if(diff < top){
                 top = diff;
@@ -21,6 +21,6 @@ module.exports = function(app) {
             }
         };
         friends.push(currentUser);
-        res.json(friends[i]);
+        res.json(match);
     });
 };

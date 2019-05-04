@@ -85,6 +85,7 @@
 
     $("#submit").on("click", function() {
         console.log('submit clicked');
+        event.preventDefault();
 
         var friend = {
             name: $("#name").val().trim(),
@@ -96,15 +97,14 @@
             var score = $("#q" + i).val().trim();
             friend.scores.push(parseInt(score));
         };
-        
-        $.post("/api/friends", friend), function(data) {
+        var url = window.location.origin;
+        $.post(url+"/api/friends", friend), function(data) {
             console.log("DATA: "+data);
-            // $("#match-name").text(data.matchName);
-            // $("#match-img").html(data.matchImage);
-            // $("#match-results").show();                      
+            $("#match-name").text(data.matchName);
+            $("#match-img").html(data.matchImage);
+            $("#match-results").show();                      
         };
              
-        event.preventDefault();
     });
 
     $("#close").on("click", function() {
