@@ -66,7 +66,7 @@
                     <h2 class="modal-title"><strong>Best Match</strong></h2>
                 </div>
                 <div class="modal-body">
-                    <h2 id="match-name">TEST</h2>
+                    <h2 id="match-name"></h2>
                     <img id="match-img" src="" alt="" />
                 </div>
                 <div class="modal-footer">
@@ -84,30 +84,30 @@
     });
 
     $("#submit").on("click", function() {
-        $("#match-results").show();  
         console.log('submit clicked');
+
         var friend = {
             name: $("#name").val().trim(),
             photo: $("#photo").val().trim(),
-            values: []
+            scores: []
         };
 
         for (var i = 1; i < 3; i++) {
             var score = $("#q" + i).val().trim();
-            friend.values.push(parseInt(score));
+            friend.scores.push(parseInt(score));
         };
         
         $.post("/api/friends", friend), function(data) {
-            console.log(data);
-            $("#match-name").text(data.matchName);
-            $("#match-img").html(data.matchImage);
-            $("#match-results").show();            
-        }
-        console.log(friend);
+            console.log("DATA: "+data);
+            // $("#match-name").text(data.matchName);
+            // $("#match-img").html(data.matchImage);
+            // $("#match-results").show();                      
+        };
+             
         event.preventDefault();
     });
 
-    $("#submit").on("click", function() {
+    $("#close").on("click", function() {
         $("#match-results").hide();
     });
 

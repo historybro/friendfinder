@@ -1,6 +1,6 @@
 var friends = require("../data/friends.js");
 
-module.exports = function (app) {
+module.exports = function(app) {
     app.get("/api/friends", function (req, res) {
         res.json(friends)
     });
@@ -10,17 +10,17 @@ module.exports = function (app) {
         var top = 50;
         var match;
         var currentUser = req.body
-        for(var i in friends){
+        for(var i =0; i < friends.length; i++){
             diff = 0;
-            for(var j in friends[i].scores){
-                diff += Math.abs(friends[i].scores[j] - currentUser.scores[j])
+            for(var j = 0; j < friends[i].scores.length; j++){
+                diff += Math.abs(friends[i].scores[j] + 2)// - currentUser.scores[j])
             }
             if(diff < top){
                 top = diff;
                 match = friends[i]
             }
-        }
-        friends.push(currentUser)
-        res.send([match, top])
+        };
+        friends.push(currentUser);
+        res.json(friends[i]);
     });
 };
